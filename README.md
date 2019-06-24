@@ -71,6 +71,7 @@ oc cluster up --public-hostname=ip-10-0-0-240.eu-west-1.compute.internal
 
 Login as admin to see cluster status:
 [root@ip-10-0-0-240 ~]# oc login -u system:admin
+```
 Logged into "https://127.0.0.1:8443" as "system:admin" using existing credentials.
 
 You have access to the following projects and can switch between them with 'oc project <projectname>':
@@ -91,9 +92,10 @@ You have access to the following projects and can switch between them with 'oc p
     openshift-web-console
 
 Using project "myproject".
-
+```
 
 [root@ip-10-0-0-240 ~]# oc get pods --all-namespaces
+```
 NAMESPACE                       NAME                                                      READY     STATUS      RESTARTS   AGE
 default                         docker-registry-1-fpd9f                                   1/1       Running     0          17m
 default                         persistent-volume-setup-87755                             0/1       Completed   0          17m
@@ -111,5 +113,6 @@ openshift-core-operators        openshift-web-console-operator-664b974ff5-vmjbv 
 openshift-service-cert-signer   apiservice-cabundle-injector-8ffbbb6dc-4ch96              1/1       Running     0          18m
 openshift-service-cert-signer   service-serving-cert-signer-668c45d5f-jc4rs               1/1       Running     0          18m
 openshift-web-console           webconsole-657cbc5c6b-jtlk8                               1/1       Running     0          17m
+```
 
 
