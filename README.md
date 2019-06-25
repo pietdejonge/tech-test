@@ -1,4 +1,6 @@
-## 1. System Preparation and Info 
+
+
+## System Preparation and Info 
 First, I created an EC2 instance on AWS. Key software versions:
 ```
 hostname  
@@ -44,10 +46,10 @@ Server https://127.0.0.1:8443
 kubernetes v1.11.0+d4cacc0
 ```
 
-## 2. Creating repository 
+## Creating repository 
 https://github.com/sushanco/tech-test
 
-## 3. Added README.md 
+## Added README.md 
 ### Downloading and setup oc client 
 
 ```
@@ -123,15 +125,17 @@ openshift-service-cert-signer   apiservice-cabundle-injector-8ffbbb6dc-4ch96    
 openshift-service-cert-signer   service-serving-cert-signer-668c45d5f-jc4rs               1/1       Running     0          18m
 openshift-web-console           webconsole-657cbc5c6b-jtlk8                               1/1       Running     0          17m
 ```
-## Created python app 
+### Created python app 
 All OpenShift objects are inside python-app directory.
 
 I then created all objects.
-`oc create -f <object-name>`
+```
+oc create -f <object-name>
 
 
-[root@ip-10-0-0-240 python-app]# curl python-web-app-svc-myproject.127.0.0.1.nip.io
+[ec2-user@ip-10-0-0-240 python-app]# curl python-web-app-svc-myproject.127.0.0.1.nip.io
 Hello world! 
+```
 
-## Create Ansible test role, mix of ansible and molecule test
-Dir: python-app/app-tests
+### Created Ansible test role
+A mix of ansible and molecule tests can be found under the directory python-app/app-tests
