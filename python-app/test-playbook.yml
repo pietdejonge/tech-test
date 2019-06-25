@@ -1,5 +1,6 @@
 ---
 - name: Run tests
-  hosts: masters[0]
+  hosts: masters
+  run_once: true
   roles:
-   - app-tests
+   - role: app-tests
