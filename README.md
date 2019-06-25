@@ -1,7 +1,8 @@
+This repository is 
 
 
-## System Preparation and Info 
-First, I created an EC2 instance on AWS. Key software versions:
+### System Preparation and Info 
+First, I created an EC2 instance on AWS. Key software versions are as follows:
 ```
 hostname  
 ip-10-0-0-240.eu-west-1.compute.internal
@@ -46,15 +47,11 @@ Server https://127.0.0.1:8443
 kubernetes v1.11.0+d4cacc0
 ```
 
-## Creating repository 
-https://github.com/sushanco/tech-test
 
-## Added README.md 
-### Downloading and setup oc client 
+### Setup oc client 
 
 ```
 wget -q https://github.com/openshift/origin/releases/download/v3.11.0/openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit.tar.gz
-
 
 tar -xvf openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit.tar.gz
 
@@ -64,7 +61,7 @@ Install docker
 sudo yum install docker -y
 ```
 
-### Modify docker deamon config file 
+### Modify docker deamon config 
 ```
 sudo vim /etc/sysconfig/docker
 
@@ -77,8 +74,7 @@ ADD_REGISTRY='--add-registry docker.io'
 ```
 oc cluster up --public-hostname=ip-10-0-0-240.eu-west-1.compute.internal
 ```
-
-I then logged in as a cluster admin to see cluster status:
+After the custer was up, I logged in as a cluster admin to see cluster status:
 ```
 oc login -u system:admin
 
@@ -125,17 +121,44 @@ openshift-service-cert-signer   apiservice-cabundle-injector-8ffbbb6dc-4ch96    
 openshift-service-cert-signer   service-serving-cert-signer-668c45d5f-jc4rs               1/1       Running     0          18m
 openshift-web-console           webconsole-657cbc5c6b-jtlk8                               1/1       Running     0          17m
 ```
-### Created python app 
-All OpenShift objects are inside python-app directory.
+### Running python app 
 
-I then created all objects.
+Python app, OpenShift objects, ansible tests are in [python-app](python-app) directory.
+
+Running the app
+`cd python-app`
+
+`python app.py` 
+
+### Creating OpenShift objects 
+
 ```
-oc create -f <object-name>
+# First we need to create a github secret, since openshift secrets can be base64 decoded, the secret has not been commited to this repo. 
 
+oc create -f python-app/app-imagestream.json 
+oc create -f python-app/app-buildconfig.json
+oc create -f python-app/app-deploymentconfig.json
+oc create -f python-app/app-pv.json 
+oc create -f python-app/app-pvc.json 
+oc create -f python-app/app-service.json
+oc create -f python-app/app-route.json 
 
-[ec2-user@ip-10-0-0-240 python-app]# curl python-web-app-svc-myproject.127.0.0.1.nip.io
-Hello world! 
+# Deployment Config with pv
+oc create -f python-app/app-deploymentconfig-with-pv.json
+
+# Deployment Config with pv mounted on /mnt
+oc create -f python-app/app-deploymentconfig-with-pv-and-mnt-path.json 
+
+# Check application route works.
+curl python-web-app-svc-myproject.127.0.0.1.nip.io
+Hello World! 
 ```
 
-### Created Ansible test role
-A mix of ansible and molecule tests can be found under the directory python-app/app-tests
+### Ansible tests playbook and role
+Tests directory: [python-app/app-tests](python-app/app-tests)
+
+Playbook: [test-playbook.yml](python-app/test-playbook.yml)
+
+Role: [python-app/app-tests/](python-app/app-tests)
+
+Molecule test, default scenario: [python-app/app-tests/molecule](python-app/app-tests/molecule)
