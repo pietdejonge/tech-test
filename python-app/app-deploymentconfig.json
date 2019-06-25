@@ -1,0 +1,56 @@
+{
+    "kind": "DeploymentConfig",
+    "apiVersion": "v1",
+    "metadata": {
+      "name": "python-web-app"
+    },
+    "spec": {
+      "template": {
+        "metadata": {
+          "labels": {
+            "name": "python-web-app"
+          }
+        },
+        "spec": {
+          "containers": [
+            {
+              "name": "helloworld",
+              "image": "myproject/python-sample-app",
+              "ports": [
+                {
+                  "containerPort": 5000,
+                  "protocol": "TCP"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "replicas": 2,
+      "selector": {
+        "name": "python-web-app"
+      },
+      "triggers": [
+        {
+          "type": "ConfigChange"
+        },
+        {
+          "type": "ImageChange",
+          "imageChangeParams": {
+            "automatic": true,
+            "containerNames": [
+              "helloworld"
+            ],
+            "from": {
+              "kind": "ImageStreamTag",
+              "name": "python-sample-app:latest"
+            }
+          }
+        }
+      ],
+      "strategy": {
+        "type": "Rolling"
+      }
+    }
+  }
+  

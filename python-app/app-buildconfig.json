@@ -1,0 +1,59 @@
+{
+  "kind": "BuildConfig",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "python-app",
+    "labels": {
+      "name": "python-app"
+    },
+    "annotations": {
+      "template.alpha.openshift.io/wait-for-ready": "true"
+    }
+  },
+  "spec": {
+    "triggers": [
+      {
+        "type": "GitHub",
+        "github": {
+          "secret": "githubsecret"
+        }
+      },
+      {
+        "type": "Generic",
+        "generic": {
+          "secret": "githubsecret",
+          "allowEnv": true
+        }
+      },
+      {
+        "type": "ImageChange",
+        "imageChange": {}
+      },
+      {
+        "type": "ConfigChange"
+      }
+    ],
+    "source": {
+      "type": "Git",
+      "git": {
+        "uri": "https://github.com/sushanco/tech-test.git"
+      }
+    },
+    "strategy": {
+      "type": "Docker",
+      "dockerStrategy": {
+        "dockerfilePath": "python-app/Dockerfile"
+      }
+    },
+    "output": {
+      "to": {
+        "kind": "ImageStreamTag",
+        "name": "python-sample-app:latest"
+      }
+    },
+    "resources": {}
+  },
+  "status": {
+    "lastVersion": 0
+  }
+}
