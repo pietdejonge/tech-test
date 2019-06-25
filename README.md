@@ -1,4 +1,4 @@
-This repository is 
+This repository is created as part of a test. It documents how an [OKD](https://www.okd.io/) cluster is created and a sample python app is deployed on the cluster. 
 
 
 ### System Preparation and Info 
