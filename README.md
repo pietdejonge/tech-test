@@ -57,8 +57,6 @@ tar -xvf openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit.tar.gz
 
 sudo mv openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit/oc /usr/bin/
 
-Install docker 
-sudo yum install docker -y
 ```
 
 ### Modify docker deamon config 
