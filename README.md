@@ -116,3 +116,6 @@ openshift-web-console           webconsole-657cbc5c6b-jtlk8                     
 ```
 
 
+[root@ip-10-0-0-240 python-app]# curl python-web-app-svc-myproject.127.0.0.1.nip.io
+Hello world! Howdy?
+
