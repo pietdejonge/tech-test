@@ -1,0 +1,26 @@
+---
+# tasks file for python-app-test
+#
+- name: "Get pod status"
+  shell: "oc get pods -l name=python-web-app -o jsonpath={.items[*].status.phase} -n myproject"
+  register: result
+
+- name: "Check if pod is running"
+  assert:
+    that:
+      - 'Running' in result.stdout
+
+- name: "Get route"
+  shell: "oc get route -l name=python-web-app -o jsonpath={.items[*].spec.host}"
+  register: route
+
+- name: "Get route response"
+  uri:
+    url: http://{{ route.stdout }}
+  return_content: yes
+  register: curl_output
+
+- name: "Check if we get hello world response"
+  assert:
+    that:
+      - 'Hello World!' in curl_output.stdout

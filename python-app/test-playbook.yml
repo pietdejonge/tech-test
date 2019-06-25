@@ -1,0 +1,5 @@
+---
+- name: Run tests
+  hosts: masters[0]
+  roles:
+   - app-tests
