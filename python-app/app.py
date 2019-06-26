@@ -26,7 +26,7 @@ schedule.every(10).seconds.do(job, path)
 # while True:
 #     schedule.run_pending()
 #     time.sleep(1)
-schedule.run_continuously()
+# schedule.run_continuously()
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
